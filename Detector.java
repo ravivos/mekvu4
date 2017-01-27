@@ -84,8 +84,6 @@ public class Detector {
 
 		public void map(Text key, Text value, Context context)
 				throws IOException, InterruptedException {
-			String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
-			System.out.println(fileName);
 
 			count.set(Integer.parseInt(value.toString()));
 			context.write(count, key);
@@ -115,6 +113,7 @@ public class Detector {
 
 		// Setup first MapReduce phase
 		//this MapReduce will take all the files and make a map of word to counter
+		System.out.println("Hello");
 		Job job1 = Job.getInstance(conf, "Detector-first");
 		job1.setJarByClass(Detector.class);
 		job1.setMapperClass(TokenizerMapper.class);
@@ -126,12 +125,13 @@ public class Detector {
 		FileInputFormat.addInputPath(job1, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job1, TEMP_PATH);
 		//FileOutputFormat.setOutputPath(job1, new Path(args[1]));
-
+		System.out.println("Hello1");
 		boolean status1 = job1.waitForCompletion(true);
 		if(!status1) {
 			System.exit(1);
 		}
 		// Setup second MapReduce phase
+		System.out.println("Hello2");
 		Job job2 = Job.getInstance(conf, "Detector-second");
 		job2.setJarByClass(Detector.class);
 		job2.setMapperClass(FileToResMapper.class);
@@ -143,9 +143,9 @@ public class Detector {
 		job2.setInputFormatClass(KeyValueTextInputFormat.class);
 		FileInputFormat.addInputPath(job2, TEMP_PATH);
 		FileOutputFormat.setOutputPath(job2, new Path(args[1]));
-
+		System.out.println("Hello3");
 		boolean status2 = job2.waitForCompletion(true);
-
+		System.out.println("Hello4");
 		fs.delete(TEMP_PATH, true);
 
 		if (!status2) System.exit(1);
