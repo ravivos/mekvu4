@@ -333,7 +333,7 @@ public class Detector {
 		job5.setMapperClass(AllPairsSummer.class);
 		job5.setReducerClass(ReduceSumK.class);
 		job5.setMapOutputKeyClass(Text.class);
-		job5.setMapOutputValueClass(Text.class);
+		job5.setMapOutputValueClass(IntWritable.class);
 		job5.setOutputKeyClass(Text.class);
 		job5.setOutputValueClass(IntWritable.class);
 		job5.setInputFormatClass(KeyValueTextInputFormat.class);
