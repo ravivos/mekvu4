@@ -330,7 +330,7 @@ public class Detector {
 		 * Last One
 		 *
 		 */
-		Job job5 = Job.getInstance(conf, "Detector-second");
+		Job job5 = Job.getInstance(conf, "Detector-fifth");
 		job5.setJarByClass(Detector.class);
 		job5.setMapperClass(AllPairsSummer.class);
 		job5.setReducerClass(ReduceSumK.class);
@@ -339,9 +339,9 @@ public class Detector {
 		job5.setOutputKeyClass(Text.class);
 		job5.setOutputValueClass(IntWritable.class);
 		job5.setInputFormatClass(KeyValueTextInputFormat.class);
-		FileInputFormat.addInputPath(job2, TEMP_PATH4);
-		FileOutputFormat.setOutputPath(job2, new Path(args[3]));
-		boolean status5 = job2.waitForCompletion(true);
+		FileInputFormat.addInputPath(job5, TEMP_PATH4);
+		FileOutputFormat.setOutputPath(job5, new Path(args[3]));
+		boolean status5 = job5.waitForCompletion(true);
 
 		if (!status5)
 			System.exit(1);
