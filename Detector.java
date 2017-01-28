@@ -187,13 +187,11 @@ public class Detector {
      * f:(file1 file 2 sum)->(<file1, file2>, sum)
      */
     public static class AllPairsSummer extends Mapper<Text, IntWritable, Text, IntWritable>{
-        public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
-            String s[] = value.toString().split(" ");
-            Text fileName1 = new Text(s[0]);
-            Text fileName2 = new Text(s[1]);
-            int count = Integer.parseInt(s[2]);
+        public void map(Text key, IntWritable value, Context context) throws IOException, InterruptedException {
+            String fileName1 = key.toString().split(" ")[0];
+            String fileName2 = key.toString().split(" ")[1];
             Text p = new Text(fileName1 + "\t" + fileName2);
-            context.write(p, new IntWritable(count));
+            context.write(p, value);
         }
 
     }
