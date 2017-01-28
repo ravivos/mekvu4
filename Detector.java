@@ -19,7 +19,9 @@ import org.apache.hadoop.fs.FileSystem;
 
 /**
  * the class of the Detector
- *
+ * 
+
+
  * @author Raviv Rachmiel <raviv.rachmiel@gmail.com>
  * @since Jan 26, 2017
  */
