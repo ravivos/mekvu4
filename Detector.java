@@ -158,12 +158,13 @@ public class Detector {
 			System.exit(1);
 		}
 		
-		
+		/*
 		/*
 		 * map file to tuple of word and occurences
 		 * 
 		 */
 		// Setup second MapReduce phase
+		/*
 				System.out.println("Hello2");
 				Job job3 = Job.getInstance(conf, "Detector-second");
 				job3.setJarByClass(Detector.class);
@@ -182,12 +183,13 @@ public class Detector {
 
 
 				if (!status3) System.exit(1);
-				
+				*/
 		/*
 		 * maps file to list of words and occurences
 		 * reduce to only first N (which will be sorted because of the prev map red
 		 */
 		// Setup second MapReduce phase
+				/*
 		System.out.println("Hello2");
 		Job job2 = Job.getInstance(conf, "Detector-second");
 		job2.setJarByClass(Detector.class);
@@ -205,6 +207,7 @@ public class Detector {
 		System.out.println("Hello4");
 
 		if (!status2) System.exit(1);
+		*/
 		
 		/*
 		 * do cartesian on the prev map reduce keys and intersect the vals
@@ -214,7 +217,8 @@ public class Detector {
 		
 		
 		fs.delete(TEMP_PATH, true);
-		fs.delete(TEMP_PATH2, true);
+		
+		//fs.delete(TEMP_PATH2, true);
 		
 	
 	}
