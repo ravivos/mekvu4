@@ -67,7 +67,7 @@ public class Detector {
 			while (st.hasMoreTokens()) {
 				String temp = st.nextToken();
 				word.set(temp.split(" ")[0]); // the file name
-				context.write(word, new Text(value + " " + temp.split(" ")[1]));
+				context.write(word, new Text(" -- " + value + " - " + temp));
 			}
 		}
 	}
