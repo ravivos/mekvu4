@@ -19,7 +19,7 @@ import org.apache.hadoop.fs.FileSystem;
 
 /**
  * the class of the Detector
- * 
+ *
  * @author Raviv Rachmiel <raviv.rachmiel@gmail.com>
  * @since Jan 26, 2017
  */
@@ -30,9 +30,9 @@ public class Detector {
 	private static final Path TEMP_PATH3 = new Path("temp3");
 	private static final Path TEMP_PATH4 = new Path("temp4");
 	private static final Path TEMP_PATH5 = new Path("temp5");
-	
 
-	
+
+
 	/*
 	 * First Map Reduce, similar to wordOrder that weve seen in class
 	 */
@@ -66,8 +66,8 @@ public class Detector {
 			context.write(key, result);
 		}
 	}
-	
-	
+
+
 	/*
 	 * second mapReduce - the sorter
 	 */
@@ -130,9 +130,9 @@ public class Detector {
 	/*
 	 * we have text1.txt topN text2.txt topN text3.txt topN text4.txt topN
 	 * text5.txt topN ... we need text1.txt text2.txt sum(inter(topN1,topN2))
-	 * 
+	 *
 	 * ->
-	 * 
+	 *
 	 * word -> filename,count -> reduces to: <filename 1,filename2> -> count1 +
 	 * count2
 	 */
@@ -188,24 +188,24 @@ public class Detector {
             String s[] = value.toString().split(" ");
             Text fileName1 = new Text(s[0]);
             Text fileName2 = new Text(s[1]);
-            int count = Integer.parseInt(s[2]); 
+            int count = Integer.parseInt(s[2]);
             Text p = new Text(fileName1 + ", " + fileName2);
             context.write(p, new IntWritable(count));
         }
-         
+
     }
-     
+
     /*
      * f:(<file1, file2>, list(sum))-> <file1, file2>
      * if H(file1, file2)>=k
      * the reducer
      */
     public static class ReduceSumK extends Reducer <Text, IntWritable, Text, IntWritable>{
-             
+
         public void reduce(Text t, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             Configuration configuration = context.getConfiguration();
             int k = Integer.parseInt(configuration.get("k"));
-             
+
             int sum = 0;
             for (IntWritable val : values){
                 sum += val.get();
@@ -216,14 +216,13 @@ public class Detector {
             }
         }
     }
-	
-	
+
+
 
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		FileSystem fs = FileSystem.get(conf);
-		System.out.println("FIRST ARG - " + args[0]);
 		conf.set("n", args[0]);
 		conf.set("k", args[1]);
 
@@ -233,7 +232,7 @@ public class Detector {
 		fs.delete(TEMP_PATH3, true);
 		fs.delete(TEMP_PATH4, true);
 		fs.delete(TEMP_PATH5, true);
-		
+
 
 		/*
 		 * We chain the two Mapreduce phases using a temporary directory from
@@ -247,7 +246,6 @@ public class Detector {
 		/*
 		 * gets some files and maps file and word to occurence num
 		 */
-		System.out.println("Hello");
 		Job job1 = Job.getInstance(conf, "Detector-first");
 		job1.setJarByClass(Detector.class);
 		job1.setMapperClass(TokenizerMapper.class);
@@ -259,14 +257,12 @@ public class Detector {
 		FileInputFormat.addInputPath(job1, new Path(args[2]));
 		FileOutputFormat.setOutputPath(job1, new Path(args[3]));
 		//FileOutputFormat.setOutputPath(job1, TEMP_PATH);
-		System.out.println("Hello1");
 		boolean status1 = job1.waitForCompletion(true);
 		if (!status1) {
 			System.exit(1);
 		}
-		
+
 		// Setup second MapReduce phase
-		System.out.println("Hello2");
 		Job job3 = Job.getInstance(conf, "Detector-second");
 		job3.setJarByClass(Detector.class);
 		job3.setMapperClass(SwapMapper.class);
@@ -278,9 +274,7 @@ public class Detector {
 		job3.setInputFormatClass(KeyValueTextInputFormat.class);
 		FileInputFormat.addInputPath(job3, TEMP_PATH);
 		FileOutputFormat.setOutputPath(job3, TEMP_PATH2);
-		System.out.println("Hello3");
 		boolean status3 = job3.waitForCompletion(true);
-		System.out.println("Hello4");
 
 		if (!status3)
 			System.exit(1);
@@ -291,7 +285,6 @@ public class Detector {
 		 */
 		// Setup second MapReduce phase
 
-		System.out.println("Hello5");
 		Job job2 = Job.getInstance(conf, "Detector-third");
 		job2.setJarByClass(Detector.class);
 		job2.setMapperClass(FileToResMapper.class);
@@ -303,9 +296,7 @@ public class Detector {
 		job2.setInputFormatClass(KeyValueTextInputFormat.class);
 		FileInputFormat.addInputPath(job2, TEMP_PATH2);
 		FileOutputFormat.setOutputPath(job2, TEMP_PATH3);
-		System.out.println("Hello6");
 		boolean status2 = job2.waitForCompletion(true);
-		System.out.println("Hello7");
 
 		if (!status2)
 			System.exit(1);
@@ -313,10 +304,9 @@ public class Detector {
 		/*
 		 * do cartesian on the prev map reduce keys and intersect the vals
 		 * remove (b,a) if we have (a,b)
-		 * 
+		 *
 		 */
 		
-		System.out.println("Hello8");
 		Job job4 = Job.getInstance(conf, "Detector-Fourth");
 		job4.setJarByClass(Detector.class);
 		job4.setMapperClass(WordToFileCount.class);
@@ -328,18 +318,15 @@ public class Detector {
 		job4.setInputFormatClass(KeyValueTextInputFormat.class);
 		FileInputFormat.addInputPath(job4, TEMP_PATH3);
 		FileOutputFormat.setOutputPath(job4, TEMP_PATH4);
-		System.out.println("Hello9");
 		boolean status4 = job4.waitForCompletion(true);
-		System.out.println("Hello10");
 
 		if (!status4)
 			System.exit(1);
-		
+
 		/*
 		 * Last One
-		 * 
+		 *
 		 */
-		System.out.println("Hello11");
 		Job job5 = Job.getInstance(conf, "Detector-second");
 		job5.setJarByClass(Detector.class);
 		job5.setMapperClass(AllPairsSummer.class);
@@ -351,9 +338,7 @@ public class Detector {
 		job5.setInputFormatClass(KeyValueTextInputFormat.class);
 		FileInputFormat.addInputPath(job2, TEMP_PATH4);
 		FileOutputFormat.setOutputPath(job2, new Path(args[3]));
-		System.out.println("Hello12");
 		boolean status5 = job2.waitForCompletion(true);
-		System.out.println("Hello122"); 
 
 		if (!status5)
 			System.exit(1);
