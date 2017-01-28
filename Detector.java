@@ -217,8 +217,7 @@ public class Detector {
 		
 		
 		fs.delete(TEMP_PATH, true);
-		
-		//fs.delete(TEMP_PATH2, true);
+		fs.delete(TEMP_PATH2, true);
 		
 	
 	}
