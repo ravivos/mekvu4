@@ -257,7 +257,7 @@ public class Detector {
 		job1.setOutputKeyClass(Text.class);
 		job1.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job1, new Path(args[2]));
-		FileInputFormat.addInputPath(job1, new Path(args[3]));
+		FileOutputFormat.setOutputPath(job1, new Path(args[3]));
 		//FileOutputFormat.setOutputPath(job1, TEMP_PATH);
 		System.out.println("Hello1");
 		boolean status1 = job1.waitForCompletion(true);
