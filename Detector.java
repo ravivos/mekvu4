@@ -65,8 +65,9 @@ public class Detector {
 				throws IOException, InterruptedException {
 			StringTokenizer st = new StringTokenizer(value.toString().toLowerCase());
 			while (st.hasMoreTokens()) {
-				word.set(st.nextToken().split(" ")[0]); // the file name
-				context.write(word, new Text(value + " " + st.nextToken().split(" ")[1]));
+				String temp = st.nextToken();
+				word.set(temp.split(" ")[0]); // the file name
+				context.write(word, new Text(value + " " + temp.split(" ")[1]));
 			}
 		}
 	}
