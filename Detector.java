@@ -51,7 +51,7 @@ public class Detector {
 			for (IntWritable val : values) {
 				sum += val.get();
 			}
-			result.set(sum);
+			result.set(-sum);
 			context.write(key, result);
 		}
 	}
@@ -86,7 +86,7 @@ public class Detector {
 				String temp = key.toString();
 				String nt = st.nextToken();
 				word.set(temp.split(" ")[0]); // the file name
-				context.write(word, new Text(" -- " + nt + " - " + temp.split(" ")[1]));
+				context.write(word, new Text(temp.split(" ")[1]+ " " + nt));
 			}
 		}
 	}
@@ -126,7 +126,7 @@ public class Detector {
 			while (st.hasMoreTokens()) {
 				String temp = key.toString();
 				String nt = st.nextToken();
-				word.set(nt.split(" ")[0]); // the file name
+				word.set(nt.split(" ")[0]); // word
 				context.write(word, new Text(temp + " " + nt.split(" ")[1]));
 			}
 		}
@@ -194,7 +194,7 @@ public class Detector {
             for (IntWritable val : values){
                 sum += val.get();
             }
-             
+            sum = -sum;
             if (sum >= k){
                 context.write(t, new IntWritable(sum));
             }
