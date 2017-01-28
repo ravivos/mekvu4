@@ -66,7 +66,7 @@ public class Detector {
 			StringTokenizer st = new StringTokenizer(value.toString().toLowerCase());
 			while (st.hasMoreTokens()) {
 				word.set(st.nextToken().split(" ")[0]); // the file name
-				context.write(word, new Text(st.nextToken().split(" ")[2] + " " + st.nextToken().split(" ")[1]));
+				context.write(word, new Text(value + " " + st.nextToken().split(" ")[1]));
 			}
 		}
 	}
@@ -190,7 +190,7 @@ public class Detector {
 		 */
 		// Setup second MapReduce phase
 				
-		System.out.println("Hello2");
+		System.out.println("Hello5");
 		Job job2 = Job.getInstance(conf, "Detector-second");
 		job2.setJarByClass(Detector.class);
 		job2.setMapperClass(FileToResMapper.class);
@@ -202,9 +202,9 @@ public class Detector {
 		job2.setInputFormatClass(KeyValueTextInputFormat.class);
 		FileInputFormat.addInputPath(job2, TEMP_PATH2);
 		FileOutputFormat.setOutputPath(job2, new Path(args[3]));
-		System.out.println("Hello3");
+		System.out.println("Hello6");
 		boolean status2 = job2.waitForCompletion(true);
-		System.out.println("Hello4");
+		System.out.println("Hello7");
 
 		if (!status2) System.exit(1);
 		
