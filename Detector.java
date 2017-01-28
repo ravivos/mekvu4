@@ -66,8 +66,9 @@ public class Detector {
 			StringTokenizer st = new StringTokenizer(value.toString().toLowerCase());
 			while (st.hasMoreTokens()) {
 				String temp = key.toString();
+				String nt = st.nextToken();
 				word.set(temp.split(" ")[0]); // the file name
-				context.write(word, new Text(" -- " + value + " - " + temp.split(" ")[1]));
+				context.write(word, new Text(" -- " + nt + " - " + temp.split(" ")[1]));
 			}
 		}
 	}
