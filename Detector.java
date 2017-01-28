@@ -147,9 +147,9 @@ public class Detector {
 			while (st.hasMoreTokens()) {
 				String temp = key.toString();
 				String nt = st.nextToken();
-				String nothing = st.nextToken();
-				word.set(nt.split(" ")[0]); // word
-				context.write(word, new Text(temp + " " + nt));
+				String num = st.nextToken();
+				word.set(nt); // word
+				context.write(word, new Text(temp + " " + num));
 			}
 		}
 	}
