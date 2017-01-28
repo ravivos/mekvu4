@@ -170,10 +170,10 @@ public class Detector {
 				job3.setJarByClass(Detector.class);
 				job3.setMapperClass(SwapMapper.class);
 				job3.setReducerClass(OutputReducer.class);
-				job3.setMapOutputKeyClass(IntWritable.class);
+				job3.setMapOutputKeyClass(Text.class);
 				job3.setMapOutputValueClass(Text.class);
 				job3.setOutputKeyClass(Text.class);
-				job3.setOutputValueClass(NullWritable.class);
+				job3.setOutputValueClass(Text.class);
 				job3.setInputFormatClass(KeyValueTextInputFormat.class);
 				FileInputFormat.addInputPath(job3, TEMP_PATH);
 				//FileOutputFormat.setOutputPath(job3, TEMP_PATH2);
