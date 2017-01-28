@@ -186,7 +186,7 @@ public class Detector {
      * Last map reducer
      * f:(file1 file 2 sum)->(<file1, file2>, sum)
      */
-    public static class AllPairsSummer extends Mapper<LongWritable, Text, Text, IntWritable>{
+    public static class AllPairsSummer extends Mapper<Text, Text, Text, IntWritable>{
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String s[] = value.toString().split(" ");
             Text fileName1 = new Text(s[0]);
@@ -347,11 +347,11 @@ public class Detector {
 			System.exit(1);
 
 		// Clean temporary files from the first MapReduce phase
-//		fs.delete(TEMP_PATH, true);
-//		fs.delete(TEMP_PATH2, true);
-//		fs.delete(TEMP_PATH3, true);
-//		fs.delete(TEMP_PATH4, true);
-//		fs.delete(TEMP_PATH5, true);
+		fs.delete(TEMP_PATH, true);
+		fs.delete(TEMP_PATH2, true);
+		fs.delete(TEMP_PATH3, true);
+		fs.delete(TEMP_PATH4, true);
+		fs.delete(TEMP_PATH5, true);
 
 	}
 
