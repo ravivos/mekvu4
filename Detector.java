@@ -264,99 +264,99 @@ public class Detector {
 		if (!status1) {
 			System.exit(1);
 		}
-//		
-//		// Setup second MapReduce phase
-//		System.out.println("Hello2");
-//		Job job3 = Job.getInstance(conf, "Detector-second");
-//		job3.setJarByClass(Detector.class);
-//		job3.setMapperClass(SwapMapper.class);
-//		job3.setReducerClass(OutputReducer.class);
-//		job3.setMapOutputKeyClass(Text.class);
-//		job3.setMapOutputValueClass(Text.class);
-//		job3.setOutputKeyClass(Text.class);
-//		job3.setOutputValueClass(Text.class);
-//		job3.setInputFormatClass(KeyValueTextInputFormat.class);
-//		FileInputFormat.addInputPath(job3, TEMP_PATH);
-//		FileOutputFormat.setOutputPath(job3, TEMP_PATH2);
-//		System.out.println("Hello3");
-//		boolean status3 = job3.waitForCompletion(true);
-//		System.out.println("Hello4");
-//
-//		if (!status3)
-//			System.exit(1);
-//
-//		/*
-//		 * maps file to list of words and occurences reduce to only first N
-//		 * (which will be sorted because of the prev map red
-//		 */
-//		// Setup second MapReduce phase
-//
-//		System.out.println("Hello5");
-//		Job job2 = Job.getInstance(conf, "Detector-third");
-//		job2.setJarByClass(Detector.class);
-//		job2.setMapperClass(FileToResMapper.class);
-//		job2.setReducerClass(CuttingReducer.class);
-//		job2.setMapOutputKeyClass(Text.class);
-//		job2.setMapOutputValueClass(Text.class);
-//		job2.setOutputKeyClass(Text.class);
-//		job2.setOutputValueClass(Text.class);
-//		job2.setInputFormatClass(KeyValueTextInputFormat.class);
-//		FileInputFormat.addInputPath(job2, TEMP_PATH2);
-//		FileOutputFormat.setOutputPath(job2, TEMP_PATH3);
-//		System.out.println("Hello6");
-//		boolean status2 = job2.waitForCompletion(true);
-//		System.out.println("Hello7");
-//
-//		if (!status2)
-//			System.exit(1);
-//
-//		/*
-//		 * do cartesian on the prev map reduce keys and intersect the vals
-//		 * remove (b,a) if we have (a,b)
-//		 * 
-//		 */
-//		
-//		System.out.println("Hello8");
-//		Job job4 = Job.getInstance(conf, "Detector-Fourth");
-//		job4.setJarByClass(Detector.class);
-//		job4.setMapperClass(WordToFileCount.class);
-//		job4.setReducerClass(ToTupsReducer.class);
-//		job4.setMapOutputKeyClass(Text.class);
-//		job4.setMapOutputValueClass(Text.class);
-//		job4.setOutputKeyClass(Text.class);
-//		job4.setOutputValueClass(IntWritable.class);
-//		job4.setInputFormatClass(KeyValueTextInputFormat.class);
-//		FileInputFormat.addInputPath(job4, TEMP_PATH3);
-//		FileOutputFormat.setOutputPath(job4, TEMP_PATH4);
-//		System.out.println("Hello9");
-//		boolean status4 = job4.waitForCompletion(true);
-//		System.out.println("Hello10");
-//
-//		if (!status4)
-//			System.exit(1);
-//		
-//		/*
-//		 * Last One
-//		 * 
-//		 */
-//		System.out.println("Hello11");
-//		Job job5 = Job.getInstance(conf, "Detector-second");
-//		job5.setJarByClass(Detector.class);
-//		job5.setMapperClass(AllPairsSummer.class);
-//		job5.setReducerClass(ReduceSumK.class);
-//		job5.setMapOutputKeyClass(Text.class);
-//		job5.setMapOutputValueClass(IntWritable.class);
-//		job5.setOutputKeyClass(Text.class);
-//		job5.setOutputValueClass(IntWritable.class);
-//		job5.setInputFormatClass(KeyValueTextInputFormat.class);
-//		FileInputFormat.addInputPath(job2, TEMP_PATH4);
-//		FileOutputFormat.setOutputPath(job2, new Path(args[3]));
-//		System.out.println("Hello12");
-//		boolean status5 = job2.waitForCompletion(true);
-//		System.out.println("Hello122"); 
-//
-//		if (!status5)
-//			System.exit(1);
+		
+		// Setup second MapReduce phase
+		System.out.println("Hello2");
+		Job job3 = Job.getInstance(conf, "Detector-second");
+		job3.setJarByClass(Detector.class);
+		job3.setMapperClass(SwapMapper.class);
+		job3.setReducerClass(OutputReducer.class);
+		job3.setMapOutputKeyClass(Text.class);
+		job3.setMapOutputValueClass(Text.class);
+		job3.setOutputKeyClass(Text.class);
+		job3.setOutputValueClass(Text.class);
+		job3.setInputFormatClass(KeyValueTextInputFormat.class);
+		FileInputFormat.addInputPath(job3, TEMP_PATH);
+		FileOutputFormat.setOutputPath(job3, TEMP_PATH2);
+		System.out.println("Hello3");
+		boolean status3 = job3.waitForCompletion(true);
+		System.out.println("Hello4");
+
+		if (!status3)
+			System.exit(1);
+
+		/*
+		 * maps file to list of words and occurences reduce to only first N
+		 * (which will be sorted because of the prev map red
+		 */
+		// Setup second MapReduce phase
+
+		System.out.println("Hello5");
+		Job job2 = Job.getInstance(conf, "Detector-third");
+		job2.setJarByClass(Detector.class);
+		job2.setMapperClass(FileToResMapper.class);
+		job2.setReducerClass(CuttingReducer.class);
+		job2.setMapOutputKeyClass(Text.class);
+		job2.setMapOutputValueClass(Text.class);
+		job2.setOutputKeyClass(Text.class);
+		job2.setOutputValueClass(Text.class);
+		job2.setInputFormatClass(KeyValueTextInputFormat.class);
+		FileInputFormat.addInputPath(job2, TEMP_PATH2);
+		FileOutputFormat.setOutputPath(job2, TEMP_PATH3);
+		System.out.println("Hello6");
+		boolean status2 = job2.waitForCompletion(true);
+		System.out.println("Hello7");
+
+		if (!status2)
+			System.exit(1);
+
+		/*
+		 * do cartesian on the prev map reduce keys and intersect the vals
+		 * remove (b,a) if we have (a,b)
+		 * 
+		 */
+		
+		System.out.println("Hello8");
+		Job job4 = Job.getInstance(conf, "Detector-Fourth");
+		job4.setJarByClass(Detector.class);
+		job4.setMapperClass(WordToFileCount.class);
+		job4.setReducerClass(ToTupsReducer.class);
+		job4.setMapOutputKeyClass(Text.class);
+		job4.setMapOutputValueClass(Text.class);
+		job4.setOutputKeyClass(Text.class);
+		job4.setOutputValueClass(IntWritable.class);
+		job4.setInputFormatClass(KeyValueTextInputFormat.class);
+		FileInputFormat.addInputPath(job4, TEMP_PATH3);
+		FileOutputFormat.setOutputPath(job4, TEMP_PATH4);
+		System.out.println("Hello9");
+		boolean status4 = job4.waitForCompletion(true);
+		System.out.println("Hello10");
+
+		if (!status4)
+			System.exit(1);
+		
+		/*
+		 * Last One
+		 * 
+		 */
+		System.out.println("Hello11");
+		Job job5 = Job.getInstance(conf, "Detector-second");
+		job5.setJarByClass(Detector.class);
+		job5.setMapperClass(AllPairsSummer.class);
+		job5.setReducerClass(ReduceSumK.class);
+		job5.setMapOutputKeyClass(Text.class);
+		job5.setMapOutputValueClass(IntWritable.class);
+		job5.setOutputKeyClass(Text.class);
+		job5.setOutputValueClass(IntWritable.class);
+		job5.setInputFormatClass(KeyValueTextInputFormat.class);
+		FileInputFormat.addInputPath(job2, TEMP_PATH4);
+		FileOutputFormat.setOutputPath(job2, new Path(args[3]));
+		System.out.println("Hello12");
+		boolean status5 = job2.waitForCompletion(true);
+		System.out.println("Hello122"); 
+
+		if (!status5)
+			System.exit(1);
 
 		// Clean temporary files from the first MapReduce phase
 		fs.delete(TEMP_PATH, true);
