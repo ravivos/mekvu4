@@ -257,8 +257,8 @@ public class Detector {
 		job1.setOutputKeyClass(Text.class);
 		job1.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job1, new Path(args[2]));
-		FileOutputFormat.setOutputPath(job1, new Path(args[3]));
-		//FileOutputFormat.setOutputPath(job1, TEMP_PATH);
+		//FileOutputFormat.setOutputPath(job1, new Path(args[3]));
+		FileOutputFormat.setOutputPath(job1, TEMP_PATH);
 		boolean status1 = job1.waitForCompletion(true);
 		if (!status1) {
 			System.exit(1);
@@ -346,11 +346,11 @@ public class Detector {
 			System.exit(1);
 
 		// Clean temporary files from the first MapReduce phase
-		fs.delete(TEMP_PATH, true);
-		fs.delete(TEMP_PATH2, true);
-		fs.delete(TEMP_PATH3, true);
-		fs.delete(TEMP_PATH4, true);
-		fs.delete(TEMP_PATH5, true);
+//		fs.delete(TEMP_PATH, true);
+//		fs.delete(TEMP_PATH2, true);
+//		fs.delete(TEMP_PATH3, true);
+//		fs.delete(TEMP_PATH4, true);
+//		fs.delete(TEMP_PATH5, true);
 
 	}
 
