@@ -164,7 +164,7 @@ public class Detector {
 		 * 
 		 */
 		// Setup second MapReduce phase
-		/*
+		
 				System.out.println("Hello2");
 				Job job3 = Job.getInstance(conf, "Detector-second");
 				job3.setJarByClass(Detector.class);
@@ -176,14 +176,15 @@ public class Detector {
 				job3.setOutputValueClass(NullWritable.class);
 				job3.setInputFormatClass(KeyValueTextInputFormat.class);
 				FileInputFormat.addInputPath(job3, TEMP_PATH);
-				FileOutputFormat.setOutputPath(job3, TEMP_PATH2);
+				//FileOutputFormat.setOutputPath(job3, TEMP_PATH2);
+				FileOutputFormat.setOutputPath(job3, new Path(args[3]));
 				System.out.println("Hello3");
 				boolean status3 = job3.waitForCompletion(true);
 				System.out.println("Hello4");
 
 
 				if (!status3) System.exit(1);
-				*/
+				
 		/*
 		 * maps file to list of words and occurences
 		 * reduce to only first N (which will be sorted because of the prev map red
